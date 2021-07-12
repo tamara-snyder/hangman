@@ -47,7 +47,8 @@ module Save
   end
 
   def display_saves
-    puts "Game #\tFile Name(s)"
+    puts "Game #\tFile Name(s)".teal
+    puts "----------------------"
     get_files.each_with_index do |name, index|
       puts "#{index + 1}\t#{name.to_s}"
     end
