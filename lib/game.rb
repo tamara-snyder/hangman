@@ -25,7 +25,10 @@ class Game
   end
 
   def load_dictionary
-    File.readlines("words.txt").select{|word| word.gsub!(/[^A-Za-z]/, "").length.between?(5, 12)}
+    # Keep only words that are between 5-12 letters long and are not proper nouns
+    File.readlines("words.txt").select do |word|
+      word.gsub!(/[^A-Za-z]/, "").length.between?(5, 12) && word.downcase.eql?(word)
+    end
   end
 
   def choose_random_word

@@ -6,7 +6,6 @@ module Save
   @@saves = Dir.entries("output").select {|name| /yaml/.match(name)}.sort[-1][5].to_i rescue 0
 
   def save_game
-    Dir.mkdir("output") unless Dir.exists?("output")
     @filename = "#{get_save_name}.yaml"
     File.open("output/#{@filename}", "w") {|file| file.write to_yaml}
     puts "Your game has been saved as #{@filename}."
@@ -14,6 +13,7 @@ module Save
   end
 
   def load_game
+    Dir.mkdir("output") unless Dir.exists?("output")
     files = get_files
     if !files.empty?
       display_saves
