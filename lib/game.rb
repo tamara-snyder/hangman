@@ -9,7 +9,8 @@ class Game
   def initialize
     @letters_guessed = {}
     @turns_remaining = 10
-    play_game
+    load_game
+    play
   end
 
   def play
@@ -43,8 +44,7 @@ class Game
     puts "Enter a single letter that you haven't already guessed, 'save' to save game, or 'quit' to quit."
     guess = gets.chomp.downcase
     if guess.eql?("save")
-      # print_something
-      save_game ### not creating output dir
+      save_game
     elsif guess.eql?("quit")
       exit!
     elsif valid_guess?(guess)
@@ -88,20 +88,6 @@ class Game
     if input == 'y'
     else
       puts "Thanks for playing!"
-    end
-  end
-
-  def load_game?
-    puts "Would you like to load a previously saved game?\nPress 'y' for yes or 'n' for no"
-    gets.chomp.eql?('y')
-  end
-
-  def play_game
-    if load_game?
-      load_game
-      play
-    else
-      new_game
     end
   end
 
