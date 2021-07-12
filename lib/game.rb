@@ -9,12 +9,14 @@ class Game
   def initialize
     @letters_guessed = {}
     @turns_remaining = 10
+    puts "H A N G M A N\n".teal.bold
     load_game
     play
   end
 
   def play
     puts @blanks
+    puts
     while !game_over?
       turn
     end
@@ -50,6 +52,7 @@ class Game
   def turn_input
     puts "Enter a single letter that you haven't already guessed, 'save' to save game, or 'quit' to quit."
     guess = gets.chomp.downcase
+    puts
     if guess.eql?("save")
       save_game
     elsif guess.eql?("quit")
@@ -66,8 +69,8 @@ class Game
   end
 
   def turn
-    puts "Turns remaining: ".bold + "#{@turns_remaining}"
-    puts "Letters guessed: ".bold + "#{@letters_guessed.map {|key, value| value == true ? "#{key.green}" : "#{key.red}"}.join(", ")}"
+    puts "Turns remaining: ".teal.bold + "#{@turns_remaining}"
+    puts "Letters guessed: ".teal.bold + "#{@letters_guessed.map {|key, value| value == true ? "#{key.green}" : "#{key.red}"}.join(", ")}"
     update_string(turn_input)
   end
 
@@ -79,6 +82,7 @@ class Game
       end
     end
     puts @blanks
+    puts
   end
 
   def game_over?
@@ -94,6 +98,7 @@ class Game
     @blanks = "_" * @word.length
     @letters_guessed = {}
     @turns_remaining = 10
+    puts
     play
   end
 

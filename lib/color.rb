@@ -7,6 +7,10 @@ class String
     "\e[32m#{self}\e[0m"
   end
 
+  def teal
+    "\e[36m#{self}\e[0m"
+  end
+
   def bold
     "\e[1m#{self}\e[22m"
   end
