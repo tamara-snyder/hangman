@@ -1,4 +1,4 @@
-# require "color.rb"
+require_relative "color.rb"
 require_relative "save.rb"
 
 class Game
@@ -19,7 +19,7 @@ class Game
       turn
     end
 
-    puts winner? ? "The word was indeed '#{@word}'. You win!" : "Oh no! You didn't guess the word in time :[\nThe word was '#{@word}'."
+    puts winner? ? "The word was indeed '#{@word.bold}'. You win!".green : "Oh no! You didn't guess the word in time :[\nThe word was '#{@word.bold}'.".red
 
     play_again
   end
@@ -37,7 +37,11 @@ class Game
   end
 
   def valid_guess?(string)
-    string.length == 1 && !@letters_guessed.keys.include?(string)
+    # Turn only counts if the user: 
+    # - entered only one character
+    # - entered an alphabetic character
+    # - has not already guessed the character
+    string.length == 1 && string[/[a-z]+/]  == string && !@letters_guessed.keys.include?(string)
   end
 
   def turn_input
@@ -59,8 +63,8 @@ class Game
   end
 
   def turn
-    puts "Turns remaining: #{@turns_remaining}"
-    puts "Letters guessed: #{@letters_guessed.keys.join(", ")}"
+    puts "Turns remaining: ".bold + "#{@turns_remaining}"
+    puts "Letters guessed: ".bold + "#{@letters_guessed.map {|key, value| value == true ? "#{key.green}" : "#{key.red}"}.join(", ")}"
     update_string(turn_input)
   end
 
@@ -82,15 +86,6 @@ class Game
     @word.eql?(@blanks)
   end
 
-  def self.new_game
-    puts "Play again? Press 'y' for yes or 'n' for no."
-    input = gets.chomp.downcase
-    if input == 'y'
-    else
-      puts "Thanks for playing!"
-    end
-  end
-
   def new_game
     @word = choose_random_word
     @blanks = "_" * @word.length
@@ -101,7 +96,7 @@ class Game
 
   def play_again
     puts "Play again? Press 'y' for yes or 'n' for no"
-    input = gets.chomp
+    input = gets.chomp.downcase
     if input.eql?("y")
       new_game
     end

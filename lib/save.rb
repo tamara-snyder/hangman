@@ -39,7 +39,7 @@ module Save
   end
 
   def get_save_name
-    name = "save_#{@@saves + 1}"
+    "save_#{@@saves + 1}"
   end
 
   def get_files
