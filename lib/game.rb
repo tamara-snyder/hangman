@@ -53,6 +53,7 @@ class Game
     puts "Enter a single letter that you haven't already guessed, 'save' to save game, or 'quit' to quit."
     guess = gets.chomp.downcase
     puts
+    p @word
     if guess.eql?("save")
       save_game
     elsif guess.eql?("quit")
@@ -63,6 +64,13 @@ class Game
         @turns_remaining -= 1
       end
       return guess
+    elsif guess.length > 1
+      if guess.eql?(@word)
+        @blanks = @word
+        return guess
+      else
+        return @turns_remaining -= 1
+      end
     end
 
     turn_input
@@ -107,6 +115,8 @@ class Game
     input = gets.chomp.downcase
     if input.eql?("y")
       new_game
+    else
+      exit!
     end
   end
 end
