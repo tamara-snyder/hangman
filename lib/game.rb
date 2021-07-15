@@ -53,7 +53,6 @@ class Game
     puts "Enter a single letter that you haven't already guessed, 'save' to save game, or 'quit' to quit."
     guess = gets.chomp.downcase
     puts
-    p @word
     if guess.eql?("save")
       save_game
     elsif guess.eql?("quit")
